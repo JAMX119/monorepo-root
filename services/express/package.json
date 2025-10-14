@@ -1,5 +1,5 @@
 {
-  "name": "express-service",
+  "name": "express",
   "version": "1.0.0",
   "description": "Express.js service with TypeScript",
   "main": "dist/index.js",
