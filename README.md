@@ -47,29 +47,33 @@
 ```
 monorepo-root/
 ├── apps/            # 应用程序（可独立部署的项目）
-│   ├── native/      # 移动应用（React Native 或其他原生框架）
-│   └── web/         # Web 应用（基于 Next.js）
+│   ├── admin-react/ # 管理后台（基于 React + Vite）
+│   ├── native/      # 移动应用（预留目录）
+│   └── web-nextjs/  # Web 应用（基于 Next.js）
 ├── packages/        # 共享库和工具（供多个应用使用）
 │   ├── api-client/  # API 客户端库（统一的 API 调用接口）
 │   ├── common-utils/ # 通用工具函数库（业务无关的工具方法）
 │   └── ui-components/ # 共享 UI 组件库（可复用的界面组件）
 ├── services/        # 后端微服务
-│   ├── api-gateway/ # API 网关（处理请求路由、认证和负载均衡）
-│   ├── order-service/ # 订单服务（处理订单相关业务逻辑）
-│   ├── payment-service/ # 支付服务（处理支付相关业务逻辑）
-│   └── user-service/ # 用户服务（处理用户相关业务逻辑）
+│   ├── binance-auto-trading/ # 币安自动交易服务
+│   └── express/     # Express 基础服务
 ├── configs/         # 共享配置文件（跨项目的配置项）
-├── scripts/         # 辅助脚本（自动化任务、部署脚本等）
 ├── doc/             # 项目文档（指南、API 文档等）
+│   ├── initial-project/ # 项目初始化相关文档
+│   └── turborepo-learning-path/ # Turborepo 学习路径文档
+├── scripts/         # 辅助脚本（自动化任务、部署脚本等）
+├── .gitignore       # Git 忽略配置
 ├── package.json     # 根级 package.json（定义工作区和公共脚本）
+├── pnpm-workspace.yaml # pnpm 工作区配置
+├── tsconfig.json    # TypeScript 全局配置
 └── turbo.json       # Turborepo 配置（任务定义、依赖关系等）
 ```
 
 ## 快速开始
 
 ### 前提条件
-- Node.js >= 16.0.0（推荐使用 [nvm](https://github.com/nvm-sh/nvm) 管理 Node.js 版本）
-- pnpm >= 8.0.0（可通过 `npm install -g pnpm` 安装）
+- Node.js >= 18.0.0（推荐使用 [nvm](https://github.com/nvm-sh/nvm) 管理 Node.js 版本）
+- pnpm >= 9.0.0（可通过 `npm install -g pnpm` 安装）
 
 ### 安装依赖
 
@@ -97,13 +101,19 @@ pnpm dev
 
 ```bash
 # 仅启动 Web 应用
-pnpm dev --filter web
+pnpm dev --filter web-nextjs
 
-# 仅启动特定服务
-pnpm dev --filter user-service
+# 仅启动管理后台
+pnpm dev --filter admin-react
+
+# 仅启动 Express 服务
+pnpm dev --filter express
+
+# 仅启动币安自动交易服务
+pnpm dev --filter binance-auto-trading
 
 # 启动多个特定项目
-pnpm dev --filter web --filter api-gateway
+pnpm dev --filter web-nextjs --filter express
 ```
 
 ### 构建项目
@@ -121,10 +131,13 @@ pnpm build
 
 ```bash
 # 仅构建 Web 应用及其依赖
-pnpm build --filter web
+pnpm build --filter web-nextjs
 
-# 仅构建特定服务及其依赖
-pnpm build --filter order-service
+# 仅构建管理后台及其依赖
+pnpm build --filter admin-react
+
+# 仅构建 Express 服务及其依赖
+pnpm build --filter express
 ```
 
 ### 运行测试
@@ -142,11 +155,13 @@ pnpm test
 # 仅运行 UI 组件库的测试
 pnpm test --filter ui-components
 
-# 仅运行特定服务的测试
-pnpm test --filter payment-service
+# 仅运行 Express 服务的测试
+pnpm test --filter express
 ```
 
 ### 代码质量检查
+
+#### 代码质量检查
 
 #### Lint 检查
 
@@ -173,6 +188,13 @@ pnpm format
 cat doc/turborepo-guide.md
 ```
 
+项目还包含完整的 Turborepo 学习路径文档：
+
+```bash
+# 查看 Turborepo 学习路径文档
+ls doc/turborepo-learning-path/
+```
+
 ### 常用 Turborepo 命令
 
 ```bash
@@ -197,6 +219,15 @@ npx turbo run <task-name> --force
 - `.env.development`：开发环境配置
 - `.env.test`：测试环境配置
 - `.env.production`：生产环境配置
+- `.env.local`：本地开发环境配置（不会被 Git 跟踪）
+
+### 端口配置
+
+各项目默认端口配置如下：
+- web-nextjs：8001（可在 package.json 中修改）
+- admin-react：8000（可在 vite.config.ts 中修改）
+- express：3000（可在 src/index.ts 中修改）
+- binance-auto-trading：3001（可在 src/index.ts 中修改）
 
 ### 部署流程
 
@@ -242,13 +273,14 @@ npx turbo run <task-name> --force
 
 ### 日志管理
 
-各服务的日志配置位于对应服务目录下的 `config/logger.js` 文件中。可以通过修改此文件来调整日志级别和格式。
+各服务的日志会输出到控制台，可根据需要配置日志持久化。
 
 ### 常见问题排查
 
 1. **依赖冲突**：尝试使用 `pnpm dedupe` 命令解决依赖冲突
 2. **缓存问题**：如果构建或测试出现异常，可以尝试使用 `npx turbo clean` 清除缓存后重试
 3. **端口占用**：检查是否有其他进程占用了所需端口，可在各项目的配置文件中修改默认端口
+4. **TypeScript 编译错误**：确保所有项目都符合 TypeScript 类型检查要求，可运行 `pnpm type-check` 检查类型错误
 
 ## 许可信息
 
@@ -256,4 +288,4 @@ npx turbo run <task-name> --force
 
 ---
 
-© 2023 Microservices Team. All rights reserved.
+© 2024 Microservices Team. All rights reserved.
