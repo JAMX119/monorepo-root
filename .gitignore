@@ -1,0 +1,228 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# ===========================================================================
+# 📦 Dependencies
+# ===========================================================================
+# Dependencies directories
+node_modules/
+jspm_packages/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+*.lcov
+.nyc_output/
+
+# Turbo
+.turbo/
+
+# Vercel
+.vercel/
+
+# ===========================================================================
+# 🔧 Build Outputs
+# ===========================================================================
+# Next.js
+.next/
+out/
+
+# Production
+build/
+dist/
+build-ssr/
+*.local
+
+# Storybook
+storybook-static/
+docs-build/
+
+# Gatsby
+.cache/
+public/
+
+# Nuxt.js
+.nuxt/
+
+# Vue.js
+.vuepress/dist/
+.serverless/
+.fusebox/
+.dynamodb/
+.parcel-cache/
+
+# Webpack
+webpack-stats.json
+
+# Rollup
+rollup.config.js
+
+# ===========================================================================
+# 🔑 Environment Variables
+# ===========================================================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+.env.development
+.env.test
+.env.production
+.env.*.local
+.env.*
+
+# ===========================================================================
+# 🔍 Debug & Logs
+# ===========================================================================
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary files
+*.tmp
+*.temp
+.cache
+.tmp
+
+# ===========================================================================
+# 🖥️ IDEs and Editors
+# ===========================================================================
+# VSCode
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# IntelliJ based IDEs
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Eclipse
+.project
+.classpath
+.c9/
+.settings/
+
+# Netbeans
+nbproject/private/
+
+# Sublime Text
+*.sublime-workspace
+
+# vim
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Thumbs.db:encryptable
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===========================================================================
+# 🧪 Testing & Coverage
+# ===========================================================================
+# Jest
+/coverage/
+
+# Mocha
+./mocha-reports/
+
+# Cypress
+/cypress/videos/
+/cypress/screenshots/
+
+# Playwright
+/playwright-report/
+/test-results/
+
+# ===========================================================================
+# 🔐 Security & Secrets
+# ===========================================================================
+# Certificates
+*.pem
+*.key
+*.crt
+*.csr
+
+# API keys and tokens
+*.key
+*.token
+*.secret
+
+# ===========================================================================
+# 🛠️ Monorepo Specific
+# ===========================================================================
+# pnpm workspace
+pnpm-lock.yaml
+
+# yarn workspace
+yarn.lock
+
+# npm workspace
+package-lock.json
+
+# Workspace packages symlinks
+*.tgz
+*.tar.gz
+
+# monorepo shared configs
+/configs/node_modules/
+/configs/dist/
+/configs/build/
+
+# ===========================================================================
+# ⚠️ Custom Ignore Rules
+# ===========================================================================
+# Add any project-specific ignore rules here
