@@ -39,7 +39,6 @@ docs-build/
 
 # Gatsby
 .cache/
-public/
 
 # Nuxt.js
 .nuxt/
