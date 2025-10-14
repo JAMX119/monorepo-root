@@ -2,16 +2,19 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "dev": {
+      "persistent": true,
       "cache": false,
-      "persistent": true
+      "inputs": ["src/**/*", "package.json", "vite.config.ts", "next.config.ts"],
+      "outputs": []
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**"]
+      "outputs": ["dist/**", "build/**", ".next/**"],
+      "inputs": ["src/**/*", "package.json", "tsconfig.json"]
     },
     "test": {
       "dependsOn": ["^build"],
-      "outputs": []
+      "outputs": ["coverage/**"]
     },
     "lint": {
       "outputs": []
