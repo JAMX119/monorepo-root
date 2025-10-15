@@ -225,3 +225,5 @@ package-lock.json
 # ⚠️ Custom Ignore Rules
 # ===========================================================================
 # Add any project-specific ignore rules here
+
+_**

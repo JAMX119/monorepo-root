@@ -1,6 +1,8 @@
 packages:
-  - 'apps/*'
-  - 'configs/*'
-  - 'packages/*'
-  - 'scripts/*'
-  - 'services/*'
+  - apps/*
+  - configs/*
+  - packages/*
+  - scripts/*
+  - services/*
+
+nodeLinker: hoisted
